@@ -1,5 +1,6 @@
 package uz.mold.dialog.bottom_sheet;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,24 +17,27 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import uz.mold.dialog.Command;
 import uz.mold.dialog.DialogApi;
 import uz.mold.dialog.DialogError;
 import uz.mold.dialog.R;
-import uz.mold.dialog.Command;
 
 public class BottomSheetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     public final Context context;
+    private final LayoutInflater inflater;
     private final BottomSheetDialog bottomSheetDialog;
     private final List<Object> mOptionIcons;
     private final List<Object> mOptionNames;
     private final List<Command> mOptionCommands;
 
-    public BottomSheetAdapter(BottomSheetDialog bottomSheetDialog,
+    public BottomSheetAdapter(Activity activity,
+                              BottomSheetDialog bottomSheetDialog,
                               List<Object> mOptionIcons,
                               List<Object> mOptionNames,
                               List<Command> mOptionCommands) {
-        this.context = bottomSheetDialog.getActivity();
+        this.context = activity;
+        this.inflater = LayoutInflater.from(this.context);
         this.bottomSheetDialog = bottomSheetDialog;
         this.mOptionIcons = mOptionIcons;
         this.mOptionNames = mOptionNames;
@@ -49,7 +54,8 @@ public class BottomSheetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RecyclerView.ViewHolder(View.inflate(context, R.layout.bottom_sheet_dialog_row, null)) {
+        View view = inflater.inflate(R.layout.bottom_sheet_dialog_row, null);
+        return new RecyclerView.ViewHolder(view) {
         };
     }
 

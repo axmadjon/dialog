@@ -217,7 +217,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
             sheet.callback = this.callback;
 
             if (mAdapter == null && mContent == null && mOptionNames != null) {
-                sheet.adapter = new BottomSheetAdapter(sheet, mOptionIcons, mOptionNames, mOptionCommands);
+                sheet.adapter = new BottomSheetAdapter(activity, sheet, mOptionIcons, mOptionNames, mOptionCommands);
             }
             sheet.show(activity.getSupportFragmentManager(), sheet.getTag());
         }
