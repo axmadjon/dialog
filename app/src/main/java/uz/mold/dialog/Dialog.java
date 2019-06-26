@@ -22,19 +22,42 @@ public class Dialog {
 
     //----------------------------------------------------------------------------------------------
 
+    public static void makeDatePicker(EditText et) {
+        makeDatePicker(et, false);
+    }
+
+    public static void makeDatePicker(EditText et, long startDateTime, long endDateTime) {
+        makeDatePicker(et, startDateTime, endDateTime, false);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     public static void makeDatePicker(final EditText et, final boolean withClearButton) {
+        makeDatePicker(et, -1, -1, withClearButton);
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public static void makeDatePicker(final EditText et, final long startDateTime, final long endDateTime, final boolean withClearButton) {
         et.setOnLongClickListener(null);
         et.setKeyListener(null);
         et.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    MyDatePickerDialog.show(et, withClearButton);
+                    MyDatePickerDialog.show(et, startDateTime, endDateTime, withClearButton);
                 }
                 return false;
             }
         });
+    }
+
+
+    public static void makeDateRangePicker(
+            final EditText etBegin,
+            final long startDateTime,
+            final EditText etEnd,
+            final long endDateTime
+    ) {
+        makeDateRangePicker(etBegin, startDateTime, etEnd, endDateTime, false);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -77,11 +100,6 @@ public class Dialog {
                 return false;
             }
         });
-    }
-
-
-    public static void makeDatePicker(EditText et) {
-        makeDatePicker(et, false);
     }
 
     @SuppressLint("ClickableViewAccessibility")
