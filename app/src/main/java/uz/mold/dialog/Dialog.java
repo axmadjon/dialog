@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import java.util.Collection;
+import java.util.Date;
 
 import uz.mold.dialog.alert.AlertDialogBuilder;
 import uz.mold.dialog.bottom_sheet.BottomSheetDialog;
@@ -35,6 +36,49 @@ public class Dialog {
             }
         });
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    public static void makeDateRangePicker(
+            final EditText etBegin,
+            final long startDateTime,
+            final EditText etEnd,
+            final long endDateTime,
+            final boolean withClearButton
+    ) {
+        etBegin.setOnLongClickListener(null);
+        etBegin.setKeyListener(null);
+        etBegin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Date date = DialogUtil.parse(etEnd.getText().toString());
+
+                    long end = date != null ? date.getTime() : endDateTime;
+
+                    MyDatePickerDialog.show(etBegin, startDateTime, end, withClearButton);
+                }
+                return false;
+            }
+        });
+
+        etEnd.setOnLongClickListener(null);
+        etEnd.setKeyListener(null);
+        etEnd.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+
+                    Date date = DialogUtil.parse(etBegin.getText().toString());
+
+                    long start = date != null ? date.getTime() : startDateTime;
+
+                    MyDatePickerDialog.show(etEnd, start, endDateTime, withClearButton);
+                }
+                return false;
+            }
+        });
+    }
+
 
     public static void makeDatePicker(EditText et) {
         makeDatePicker(et, false);

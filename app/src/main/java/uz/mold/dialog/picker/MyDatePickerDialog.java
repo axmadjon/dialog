@@ -42,7 +42,15 @@ public class MyDatePickerDialog implements DatePickerDialog.OnDateSetListener {
         show(editText, withClearButton, -1);
     }
 
+    public static void show(final EditText editText, long minDate, long maxDate, boolean withClearButton) {
+        show(editText, minDate, maxDate, withClearButton, -1);
+    }
+
     public static void show(final EditText editText, boolean withClearButton, int thremeResId) {
+        show(editText, -1, -1, withClearButton, thremeResId);
+    }
+
+    public static void show(final EditText editText, long minDate, long maxDate, boolean withClearButton, int thremeResId) {
         Calendar c = parse(editText.getText().toString());
 
         int year = c.get(Calendar.YEAR);
@@ -53,6 +61,17 @@ public class MyDatePickerDialog implements DatePickerDialog.OnDateSetListener {
         Context context = editText.getContext();
         DatePickerDialog dpd = thremeResId == -1 ? new DatePickerDialog(context, new MyDatePickerDialog(editText), year, month, day)
                 : new DatePickerDialog(context, thremeResId, new MyDatePickerDialog(editText), year, month, day);
+
+        if (minDate != -1) {
+            DatePicker picker = dpd.getDatePicker();
+            picker.setMinDate(minDate);
+        }
+
+        if (maxDate != -1) {
+            DatePicker picker = dpd.getDatePicker();
+            picker.setMaxDate(maxDate);
+        }
+
         if (withClearButton) {
             dpd.setButton(DialogInterface.BUTTON_NEUTRAL, context.getString(R.string.clear),
                     new DialogInterface.OnClickListener() {
