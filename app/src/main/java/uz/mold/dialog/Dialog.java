@@ -15,6 +15,7 @@ import java.util.Date;
 import uz.mold.dialog.alert.AlertDialogBuilder;
 import uz.mold.dialog.bottom_sheet.BottomSheetDialog;
 import uz.mold.dialog.picker.MyDatePickerDialog;
+import uz.mold.dialog.picker.MyDateWithTimePickerDialog;
 import uz.mold.dialog.picker.MyTimePickerDialog;
 import uz.mold.dialog.popup.PopupBuilder;
 
@@ -117,6 +118,32 @@ public class Dialog {
         });
     }
 
+    //----------------------------------------------------------------------------------------------
+    public static void makeDateAndTimePicker(EditText et) {
+        makeDateAndTimePicker(et, false);
+    }
+
+    public static void makeDateAndTimePicker(EditText et, long startDateTime, long endDateTime) {
+        makeDateAndTimePicker(et, startDateTime, endDateTime, false);
+    }
+
+    public static void makeDateAndTimePicker(final EditText et, final boolean withClearButton) {
+        makeDateAndTimePicker(et, -1, -1, withClearButton);
+    }
+
+    public static void makeDateAndTimePicker(final EditText et, final long startDateTime, final long endDateTime, final boolean withClearButton) {
+        et.setOnLongClickListener(null);
+        et.setKeyListener(null);
+        et.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    MyDateWithTimePickerDialog.show(et, startDateTime, endDateTime, withClearButton);
+                }
+                return false;
+            }
+        });
+    }
     //----------------------------------------------------------------------------------------------
 
     public static BottomSheetDialog.Builder bottomSheet() {
