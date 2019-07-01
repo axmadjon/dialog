@@ -15,7 +15,6 @@ import java.util.Date;
 import uz.mold.dialog.alert.AlertDialogBuilder;
 import uz.mold.dialog.bottom_sheet.BottomSheetDialog;
 import uz.mold.dialog.picker.MyDatePickerDialog;
-import uz.mold.dialog.picker.MyDateWithTimePickerDialog;
 import uz.mold.dialog.picker.MyTimePickerDialog;
 import uz.mold.dialog.popup.PopupBuilder;
 
@@ -119,26 +118,65 @@ public class Dialog {
     }
 
     //----------------------------------------------------------------------------------------------
+
+    /**
+     * function makeDateAndTimePicker show Date and Time Picker dialog, Fist open
+     * date picker dialog set date and time  to EditText
+     *
+     * @example "dd.MM.yyyy HH:mm:ss"
+     */
     public static void makeDateAndTimePicker(EditText et) {
-        makeDateAndTimePicker(et, false);
+        makeDateAndTimePicker(et, -1, -1);
     }
 
-    public static void makeDateAndTimePicker(EditText et, long startDateTime, long endDateTime) {
-        makeDateAndTimePicker(et, startDateTime, endDateTime, false);
-    }
-
-    public static void makeDateAndTimePicker(final EditText et, final boolean withClearButton) {
-        makeDateAndTimePicker(et, -1, -1, withClearButton);
-    }
-
-    public static void makeDateAndTimePicker(final EditText et, final long startDateTime, final long endDateTime, final boolean withClearButton) {
+    /**
+     * function makeDateAndTimePicker show Date and Time Picker dialog, Fist open
+     * date picker dialog set date and time  to EditText
+     *
+     * @param startDateTime set Date Picker minimal  date(@param minDate  must be at millisecund),
+     * @param endDateTime   set Date Picker maximal  date( @param maxDate  must be at millisecund),
+     * @example "dd.MM.yyyy HH:mm:ss"
+     */
+    public static void makeDateAndTimePicker(final EditText et, final long startDateTime, final long endDateTime) {
         et.setOnLongClickListener(null);
         et.setKeyListener(null);
         et.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    MyDateWithTimePickerDialog.show(et, startDateTime, endDateTime, withClearButton);
+                    MyDatePickerDialog.show(et, true, startDateTime, endDateTime);
+                }
+                return false;
+            }
+        });
+    }
+
+    /**
+     * function makeTimeAndDatePicker show Date and Time Picker dialog, Fist open
+     * Time picker dialog set date and time  to EditText
+     *
+     * @example "dd.MM.yyyy HH:mm:ss"
+     */
+    public static void makeTimeAndDatePicker(EditText et) {
+        makeTimeAndDatePicker(et, -1, -1);
+    }
+
+    /**
+     * function makeTimeAndDatePicker show Date and Time Picker dialog, Fist open
+     * Time picker dialog set date and time  to EditText
+     *
+     * @param startDateTime set Date Picker minimal  date(@param minDate  must be at millisecund),
+     * @param endDateTime   set Date Picker maximal  date( @param maxDate  must be at millisecund),
+     * @example "dd.MM.yyyy HH:mm:ss"
+     */
+    public static void makeTimeAndDatePicker(final EditText et, final long startDateTime, final long endDateTime) {
+        et.setOnLongClickListener(null);
+        et.setKeyListener(null);
+        et.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    MyTimePickerDialog.show(et, true, startDateTime, endDateTime);
                 }
                 return false;
             }
