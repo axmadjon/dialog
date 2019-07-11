@@ -218,6 +218,29 @@ public class Dialog {
 
     //----------------------------------------------------------------------------------------------
 
+    /**
+     * function make bottom Sheet dialod and show
+     *
+     * @param activity    set FragmentActivity activity must be not null
+     * @param contentView set View contentView must be not null
+     */
+    public static void bottomSheet(FragmentActivity activity, View contentView) {
+        bottomSheet().contentView(contentView).show(activity);
+    }
+
+    /**
+     * function make bottom Sheet dialod and show
+     *
+     * @param activity    set FragmentActivity activity must be not null
+     * @param contentView set View contentView must be not null
+     * @param callback    set Callback callback for dialog state change actions
+     */
+    public static void bottomSheet(FragmentActivity activity, View contentView, Callback callback) {
+        bottomSheet().contentView(contentView).callback(callback).show(activity);
+    }
+
+    //----------------------------------------------------------------------------------------------
+
     public static void bottomSheet(FragmentActivity activity, CharSequence title, RecyclerView.Adapter adapter) {
         bottomSheet().title(title).adapter(adapter).show(activity);
     }
